@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }} - Course Platform{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'courses:course_list' %}">Courses</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'courses:course_detail' course.pk %}">{{ course.title }}</a></li>
+        <li class="breadcrumb-item active">{{ lesson.title }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-lg-8">
+        <h1>{{ lesson.title }}</h1>
+        <div class="mb-3">
+            <span class="badge bg-primary">Lesson {{ lesson.order }}</span>
+            <span class="badge bg-secondary">{{ course.title }}</span>
+        </div>
+        
+        <div class="lesson-content">
+            {{ lesson.content|linebreaks }}
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6>Other Lessons in {{ course.title }}</h6>
+            </div>
+            <div class="card-body">
+                {% if other_lessons %}
+                <ul class="list-unstyled">
+                    {% for other_lesson in other_lessons %}
+                    <li class="mb-2">
+                        <a href="{% url 'courses:lesson_detail' other_lesson.pk %}" class="text-decoration-none">
+                            {{ other_lesson.order }}. {{ other_lesson.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">This is the only lesson in the course.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="{% url 'courses:course_detail' course.pk %}" class="btn btn-secondary">← Back to Course</a>
+</div>
+{% endblock %}

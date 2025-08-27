@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}All Courses - Course Platform{% endblock %}
+
+{% block content %}
+<h1>All Courses</h1>
+
+<div class="row">
+    {% for course in courses %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                <div class="mb-2">
+                    <small class="text-muted">
+                        {{ course.lessons.count }} lesson{{ course.lessons.count|pluralize }}
+                        • {{ course.teachers.count }} teacher{{ course.teachers.count|pluralize }}
+                    </small>
+                </div>
+                <a href="{% url 'courses:course_detail' course.pk %}" class="btn btn-primary">View Course</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            No courses available yet. <a href="/admin/">Add some courses</a> to get started.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
