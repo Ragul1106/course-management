@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5#sgcimoeblkzxem6bv7zk=!7l8q(&mbur)4zh4(t6zkvvgj$e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["course-management-mtij.onrender.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
